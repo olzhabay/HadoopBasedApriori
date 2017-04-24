@@ -21,7 +21,7 @@ import java.util.List;
 *   Mapper for PhaseK would emit a <Frequent_ItemSet , 1> pair for each item across all transactions.
 */
 
-public class AprioriPassKMapper extends Mapper<LongWritable, Text, Text, IntWritable>
+public class  AprioriPassKMapper extends Mapper<LongWritable, Text, Text, IntWritable>
 {
     final static IntWritable one = new IntWritable(1);
     Text item = new Text();

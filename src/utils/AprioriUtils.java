@@ -1,13 +1,9 @@
 package utils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import list.ItemSet;
 import list.Transaction;
+
+import java.util.*;
 
 /*
  * Contains utility methods for Apriori algorithm
@@ -32,6 +28,7 @@ public class AprioriUtils
 // Determines if an item with the specified frequency has minimum support or not.
     public static boolean hasMinSupport(double minSup, int numTxns, int itemCount) {
         /** COMPLETE **/
+         return true;
    }
 
 
