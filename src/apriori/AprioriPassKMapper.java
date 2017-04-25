@@ -25,9 +25,9 @@ public class  AprioriPassKMapper extends Mapper<LongWritable, Text, Text, IntWri
 {
     final static IntWritable one = new IntWritable(1);
     Text item = new Text();
-    List<ItemSet> itemSetsPrevPass = new ArrayList<>();
-    List<ItemSet> candidateItemSets = null;
-    Trie trie = null;
+    private List<ItemSet> itemSetsPrevPass = new ArrayList<>();
+    private List<ItemSet> candidateItemSets = null;
+    private Trie trie = null;
 
     //In Pre-Map phase: (in setup() function that is invoked for each map instance)
     //  1) Self-join L_k to create itemsets of size k+1.
@@ -38,8 +38,6 @@ public class  AprioriPassKMapper extends Mapper<LongWritable, Text, Text, IntWri
     @Override
     public void setup(Context context)
             throws IOException {
-        /** COMPLETE **/
-
         int passNum = context.getConfiguration().getInt("passNum", 2);      // getInt(String name, int defaultValue) : Get the value of the name property as an int
         String lastPassOutputFile = "output" + (passNum - 1) + "/part-r-00000";	
 
@@ -79,12 +77,11 @@ public class  AprioriPassKMapper extends Mapper<LongWritable, Text, Text, IntWri
             }
         }
         catch (Exception e) {
-
+            e.printStackTrace();
         }
         // Generate the candidateItemSets using Self-Joining and pruning.
         candidateItemSets = AprioriUtils.getCandidateItemSets(itemSetsPrevPass, (passNum - 1));
 
-        /** COMPLETE **/
         trie = new Trie(passNum);
 
         int candidateItemSetsSize = candidateItemSets.size();
@@ -101,6 +98,12 @@ public class  AprioriPassKMapper extends Mapper<LongWritable, Text, Text, IntWri
     public void map(LongWritable key, Text txnRecord, Context context)
             throws IOException, InterruptedException {
         Transaction txn = AprioriUtils.getTransaction((int) key.get(), txnRecord.toString());
-        /** COMPLETE **/
+        /** TODO **/
+        ArrayList<ItemSet> matchedItemSets = new ArrayList<>();
+        trie.findItemSets(matchedItemSets, txn);
+        for (ItemSet itemset : matchedItemSets) {
+            item.set(itemset.toString());
+            context.write(item, one);
+        }
     }
 }

@@ -21,7 +21,7 @@ public class Trie
     }
 
     public boolean add(ItemSet itemSet) {
-        /** COMPLETE **/
+        /** TODO **/
         TrieNode node = rootNode;
         for (Integer item: itemSet) {
             if (!node.containsKey(item)){
@@ -39,7 +39,7 @@ public class Trie
     }
 
     public boolean contains(ItemSet itemSet) {
-        /** COMPLETE **/
+        /** TODO **/
         TrieNode node = rootNode;
         for (Integer item: itemSet) {
             if (!node.containsKey(item)) {
@@ -55,11 +55,11 @@ public class Trie
     }
 
     public void findItemSets(ArrayList<ItemSet> matchedItemSet, Transaction transaction) {
-        /** COMPLETE **/
+        /** TODO **/
         findItemSets(matchedItemSet, rootNode, transaction, 0);
     }
 
-    public void findItemSets(ArrayList<ItemSet> matchedItemSet,
+    private void findItemSets(ArrayList<ItemSet> matchedItemSet,
                              TrieNode node,
                              Transaction transaction,
                              int index) {
