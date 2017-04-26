@@ -44,7 +44,6 @@ public class AprioriPass1Mapper extends Mapper<LongWritable, Text, Text, IntWrit
         for (Integer t : txn) {
             item.set(String.valueOf(t));
             context.write(item, one);
-
         }
     }
 }
