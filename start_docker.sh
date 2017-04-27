@@ -12,7 +12,7 @@ sudo docker run -itd \
                 -p 8088:8088 \
                 --name hadoop-master \
                 --hostname hadoop-master \
-                --volume $(pwd)/dataSet:/root/dataset \
+                --volume $(pwd):/root/Application \
                 olzhabay/hadoopbasedapriori &> /dev/null
 
 # start hadoop slave container
