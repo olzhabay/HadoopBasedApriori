@@ -28,7 +28,7 @@ public class AprioriUtils
 // Determines if an item with the specified frequency has minimum support or not.
     public static boolean hasMinSupport(double minSup, int numTxns, int itemCount) {
         /** TODO **/
-         return true;
+        return numTxns * minSup <= itemCount;
    }
 
 
@@ -60,13 +60,15 @@ public class AprioriUtils
 */
 
     public static List<ItemSet> getCandidateItemSets(List<ItemSet> prevPassItemSets, int itemSetSize) {
+        System.out.println("DEBUG");
         List<ItemSet> candidateItemSets = new ArrayList<>();
         Map<Integer, ItemSet> itemSetMap = generateItemSetMap(prevPassItemSets);
+        System.out.println(itemSetMap.toString());
         Collections.sort(prevPassItemSets);
         int prevPassItemSetsSize = prevPassItemSets.size();
-        for (int i = 0; i < prevPassItemSetsSize; i++) {
+        for (int i = 0; i < prevPassItemSetsSize-1; i++) {
             int j = i + 1;
-            while (isCandidateGenerationPossible(prevPassItemSets.get(i), prevPassItemSets.get(j))) {
+            while (j < prevPassItemSetsSize && isCandidateGenerationPossible(prevPassItemSets.get(i), prevPassItemSets.get(j))) {
                 ItemSet candidate = generateCandidateItemSet(prevPassItemSets.get(i), prevPassItemSets.get(j));
                 if (prune(itemSetMap, candidate)) {
                     candidateItemSets.add(candidate);
@@ -116,6 +118,7 @@ public class AprioriUtils
 
     static boolean prune(Map<Integer, ItemSet> itemSetsMap, ItemSet newItemSet) {
         List<ItemSet> subsets = getSubSets(newItemSet);
+        System.out.println(subsets.toString());
         for (ItemSet subItemSet : subsets) {
             int hashCodeToSearch = subItemSet.hashCode();
             if (!itemSetsMap.containsKey(hashCodeToSearch)) {
@@ -133,14 +136,14 @@ public class AprioriUtils
     }
 
     static void generateSubSets(List<ItemSet> subSets, ItemSet itemSet, ItemSet subset, int index, int size) {
-        while (subset.size() < size) {
+        while (subset.size() < size && index < itemSet.size()) {
             subset.add(itemSet.get(index));
             generateSubSets(subSets, itemSet, subset, index+1, size);
             subset.remove(itemSet.get(index));
             index++;
         }
-        if (!subSets.contains(itemSet)) {
-            subSets.add(subset);
+        if (!subSets.contains(subset) && subset.size() == size) {
+            subSets.add((ItemSet) subset.clone());
         }
     }
 }

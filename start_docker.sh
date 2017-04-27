@@ -10,9 +10,9 @@ sudo docker run -itd \
                 --net=hadoop \
                 -p 50070:50070 \
                 -p 8088:8088 \
+                -p 50030:50030 \
                 --name hadoop-master \
                 --hostname hadoop-master \
-                --volume $(pwd):/root/Application \
                 olzhabay/hadoopbasedapriori &> /dev/null
 
 # start hadoop slave container
@@ -25,7 +25,7 @@ do
                   --net=hadoop \
                   --name hadoop-slave$i \
                   --hostname hadoop-slave$i \
-                  olzhabay/hadoopbasedapriori &> /dev/null
+                  olzhabay/hadoop-compiled &> /dev/null
   i=$(( $i + 1 ))
 done
 

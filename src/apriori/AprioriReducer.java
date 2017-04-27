@@ -3,6 +3,7 @@ package apriori;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
+import utils.AprioriUtils;
 
 import java.io.IOException;
 
@@ -24,7 +25,7 @@ public class AprioriReducer extends Reducer<Text, IntWritable, Text, IntWritable
         Double minSup = Double.parseDouble(context.getConfiguration().get("minSup"));
         Integer numTxns = context.getConfiguration().getInt("numTxns", 2);
 
-        if (count >= minSup) {
+        if (AprioriUtils.hasMinSupport(minSup, numTxns, count)) {
             result.set(count);
             context.write(itemSet, result);
         }
