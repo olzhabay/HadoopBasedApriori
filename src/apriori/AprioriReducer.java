@@ -17,7 +17,6 @@ public class AprioriReducer extends Reducer<Text, IntWritable, Text, IntWritable
     private IntWritable result = new IntWritable();
     public void reduce(Text itemSet, Iterable<IntWritable> values, Context context)
             throws IOException, InterruptedException {
-        /** TODO **/
         int count = 0;
         for (IntWritable value : values) {
             count += value.get();

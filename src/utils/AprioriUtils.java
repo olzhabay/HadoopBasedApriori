@@ -27,7 +27,6 @@ public class AprioriUtils
 
 // Determines if an item with the specified frequency has minimum support or not.
     public static boolean hasMinSupport(double minSup, int numTxns, int itemCount) {
-        /** TODO **/
         return numTxns * minSup <= itemCount;
    }
 
@@ -60,10 +59,8 @@ public class AprioriUtils
 */
 
     public static List<ItemSet> getCandidateItemSets(List<ItemSet> prevPassItemSets, int itemSetSize) {
-        System.out.println("DEBUG");
         List<ItemSet> candidateItemSets = new ArrayList<>();
         Map<Integer, ItemSet> itemSetMap = generateItemSetMap(prevPassItemSets);
-        System.out.println(itemSetMap.toString());
         Collections.sort(prevPassItemSets);
         int prevPassItemSetsSize = prevPassItemSets.size();
         for (int i = 0; i < prevPassItemSetsSize-1; i++) {
@@ -118,7 +115,6 @@ public class AprioriUtils
 
     static boolean prune(Map<Integer, ItemSet> itemSetsMap, ItemSet newItemSet) {
         List<ItemSet> subsets = getSubSets(newItemSet);
-        System.out.println(subsets.toString());
         for (ItemSet subItemSet : subsets) {
             int hashCodeToSearch = subItemSet.hashCode();
             if (!itemSetsMap.containsKey(hashCodeToSearch)) {

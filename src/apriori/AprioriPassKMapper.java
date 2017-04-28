@@ -98,7 +98,6 @@ public class  AprioriPassKMapper extends Mapper<LongWritable, Text, Text, IntWri
     public void map(LongWritable key, Text txnRecord, Context context)
             throws IOException, InterruptedException {
         Transaction txn = AprioriUtils.getTransaction((int) key.get(), txnRecord.toString());
-        /** TODO **/
         ArrayList<ItemSet> matchedItemSets = new ArrayList<>();
         trie.findItemSets(matchedItemSets, txn);
         for (ItemSet itemset : matchedItemSets) {

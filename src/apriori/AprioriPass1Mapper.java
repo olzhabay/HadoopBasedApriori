@@ -40,7 +40,6 @@ public class AprioriPass1Mapper extends Mapper<LongWritable, Text, Text, IntWrit
     public void map(LongWritable key, Text txnRecord, Context context)
             throws IOException, InterruptedException {
         Transaction txn = AprioriUtils.getTransaction((int) key.get(), txnRecord.toString());
-        /** TODO **/
         for (Integer t : txn) {
             item.set(String.valueOf(t));
             context.write(item, one);
